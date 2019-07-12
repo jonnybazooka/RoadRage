@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0">
+  <display-name>Road Rage Car Rental Company Web Application</display-name>
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+
+  <security-role>
+    <role-name>ADMIN</role-name>
+  </security-role>
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>CarAdminServlet</web-resource-name>
+      <url-pattern>/admin</url-pattern>
+      <url-pattern>/return</url-pattern>
+    </web-resource-collection>
+    <auth-constraint>
+      <role-name>ADMIN</role-name>
+    </auth-constraint>
+  </security-constraint>
+
+  <login-config>
+    <auth-method>BASIC</auth-method>
+    <realm-name>DB Admin Login</realm-name>
+  </login-config>
+
+  <servlet>
+    <servlet-name>CarAdminServlet</servlet-name>
+    <servlet-class>org.tgieralt.servlets.CarAdminServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CarAdminServlet</servlet-name>
+    <url-pattern>/admin</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>OurCars</servlet-name>
+    <servlet-class>org.tgieralt.servlets.CarListServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>OurCars</servlet-name>
+    <url-pattern>/our-cars</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>RentCar</servlet-name>
+    <servlet-class>org.tgieralt.servlets.RentCarServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RentCar</servlet-name>
+    <url-pattern>/rentCar</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>Register</servlet-name>
+    <servlet-class>org.tgieralt.servlets.RegisterServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Register</servlet-name>
+    <url-pattern>/register</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>Confirm</servlet-name>
+    <servlet-class>org.tgieralt.servlets.ConfirmServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Confirm</servlet-name>
+    <url-pattern>/confirm</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>ReturnCar</servlet-name>
+    <servlet-class>org.tgieralt.servlets.ReturnServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ReturnCar</servlet-name>
+    <url-pattern>/return</url-pattern>
+  </servlet-mapping>
+</web-app>

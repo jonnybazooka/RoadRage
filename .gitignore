@@ -1,0 +1,8 @@
+target/
+.META-INF/
+.idea/
+*.iml
+.classpath
+.project
+.settings/
+persistence.xml
