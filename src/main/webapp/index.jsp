@@ -18,7 +18,7 @@
 
 <div class="container">
     <div class="row">
-        <img src="graphics/cars_front.jpg" class="img-fluid">
+        <img src="graphics/cars_front.jpg" class="img-fluid" alt="cars">
     </div>
     <div class="row">
         <h2>ROAD RAGE CAR RENTAL COMPANY</h2>

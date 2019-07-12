@@ -6,7 +6,9 @@ import org.tgieralt.persistence.Persistence;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
+import javax.servlet.ServletException;
 
 public class UserDAOi implements UserDAO {
     @Override
@@ -20,10 +22,14 @@ public class UserDAOi implements UserDAO {
     }
 
     @Override
-    public User findUserByEmail(String email) {
+    public User findUserByEmail(String email) throws ServletException {
         EntityManager entityManager = Persistence.getEntityManager();
         Query query = entityManager.createQuery("SELECT u FROM User u WHERE u.email = :email")
                 .setParameter("email", email);
-        return (User) query.getSingleResult();
+        try {
+            return (User) query.getSingleResult();
+        } catch (NoResultException e) {
+            throw new ServletException("User: " + email + " not found in database.");
+        }
     }
 }

@@ -1,5 +1,7 @@
 package org.tgieralt.servlets;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.tgieralt.authentication.HashFunction;
 import org.tgieralt.authentication.UserValidator;
 import org.tgieralt.authentication.impl.SHA256;
@@ -19,8 +21,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 public class ConfirmServlet extends HttpServlet {
+    private Logger logger = LoggerFactory.getLogger(ConfirmServlet.class);
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         RequestDispatcher dispatcher = req.getRequestDispatcher("confirm.jsp");
@@ -30,13 +35,21 @@ public class ConfirmServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HashFunction hashFunction = new SHA256();
-        LocalDate startDate = LocalDate.parse(req.getParameter("startDate"));
-        LocalDate endDate = LocalDate.parse(req.getParameter("endDate"));
+        LocalDate startDate;
+        LocalDate endDate;
+        try {
+            startDate = LocalDate.parse(req.getParameter("startDate"));
+            endDate = LocalDate.parse(req.getParameter("endDate"));
+        } catch (DateTimeParseException e) {
+            logger.info("startDate or endDate missing");
+            throw new ServletException("startDate or endDate missing");
+        }
         String userEmail = req.getParameter("userEmail");
         String passHash = hashFunction.hashPassword(req.getParameter("userPassword"));
         boolean isUserConfirmed = new UserValidator().validateUser(userEmail, passHash);
         if (!isUserConfirmed) {
-            resp.sendRedirect("confirmationError.jsp");
+            logger.info("User: " + userEmail + " tried to log-in, but was not recognized.");
+            throw new ServletException("Password for user: " + userEmail + " was not recognized.");
         } else {
             UserDAO userDAO = new UserDAOi();
             User user = userDAO.findUserByEmail(userEmail);
