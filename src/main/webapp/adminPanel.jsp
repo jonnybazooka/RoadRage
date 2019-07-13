@@ -63,8 +63,8 @@
                     <th><%=rent.getCar().getProducer()%> <%=rent.getCar().getModel()%></th>
                     <th><%=rent.getStartDate()%></th>
                     <th><%=rent.getEndDate()%></th>
-                </tr>
-                <%  }
+                </tr><%
+                    }
                 }  %>
                 </tbody>
             </table>

@@ -6,9 +6,9 @@ import org.tgieralt.models.Rent;
 import org.tgieralt.models.dao.CarDAO;
 import org.tgieralt.models.dao.FinishedRentDAO;
 import org.tgieralt.models.dao.RentDAO;
-import org.tgieralt.models.dao.impl.CarDAOi;
-import org.tgieralt.models.dao.impl.FinishedRentDAOi;
-import org.tgieralt.models.dao.impl.RentDAOi;
+import org.tgieralt.models.dao.impl.CarDaoImp;
+import org.tgieralt.models.dao.impl.FinishedRentDaoImp;
+import org.tgieralt.models.dao.impl.RentDaoImp;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -23,8 +23,8 @@ import java.util.List;
 public class CarAdminServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        RentDAO rentDAO = new RentDAOi();
-        FinishedRentDAO finishedRentDAO = new FinishedRentDAOi();
+        RentDAO rentDAO = new RentDaoImp();
+        FinishedRentDAO finishedRentDAO = new FinishedRentDaoImp();
         List<Rent> allRents = rentDAO.getAllRents();
         List<FinishedRent> finishedRents = finishedRentDAO.getAllFinishedRents();
         req.setAttribute("rentList", allRents);
@@ -40,7 +40,7 @@ public class CarAdminServlet extends HttpServlet {
         String carModel = req.getParameter("carModel");
         LocalDate prodDate = LocalDate.parse(req.getParameter("carProdDate"), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         Car car = new Car(carProducer, carModel, prodDate, true);
-        CarDAO carDAO = new CarDAOi();
+        CarDAO carDAO = new CarDaoImp();
         carDAO.saveCar(car);
 
         resp.sendRedirect("admin");

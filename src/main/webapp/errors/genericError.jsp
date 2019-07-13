@@ -35,7 +35,6 @@
                     %><li>Exception Name: <%=throwable.getClass().getName()%></li><%
                     %><li>Exception Message: <%=throwable.getMessage()%></li><%
                     %><li>Servlet: <%=servletName%></li><%
-                    %><li>Request URI: <%=requestURI%></li><%
                 }
             %>
         </ul>

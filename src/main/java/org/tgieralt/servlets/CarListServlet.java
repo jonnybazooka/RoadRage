@@ -2,7 +2,7 @@ package org.tgieralt.servlets;
 
 import org.tgieralt.models.Car;
 import org.tgieralt.models.dao.CarDAO;
-import org.tgieralt.models.dao.impl.CarDAOi;
+import org.tgieralt.models.dao.impl.CarDaoImp;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -18,7 +18,7 @@ public class CarListServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         List<Car> cars;
-        CarDAO carDAO = new CarDAOi();
+        CarDAO carDAO = new CarDaoImp();
         cars = carDAO.getCarList();
         session.setAttribute("carList", cars);
 

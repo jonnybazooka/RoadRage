@@ -10,9 +10,9 @@ import org.tgieralt.models.User;
 import org.tgieralt.models.dao.CarDAO;
 import org.tgieralt.models.dao.RentDAO;
 import org.tgieralt.models.dao.UserDAO;
-import org.tgieralt.models.dao.impl.CarDAOi;
-import org.tgieralt.models.dao.impl.RentDAOi;
-import org.tgieralt.models.dao.impl.UserDAOi;
+import org.tgieralt.models.dao.impl.CarDaoImp;
+import org.tgieralt.models.dao.impl.RentDaoImp;
+import org.tgieralt.models.dao.impl.UserDaoImp;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -51,12 +51,12 @@ public class ConfirmServlet extends HttpServlet {
             logger.info("User: " + userEmail + " tried to log-in, but was not recognized.");
             throw new ServletException("Password for user: " + userEmail + " was not recognized.");
         } else {
-            UserDAO userDAO = new UserDAOi();
+            UserDAO userDAO = new UserDaoImp();
             User user = userDAO.findUserByEmail(userEmail);
             long carId = Long.parseLong((String)req.getSession().getAttribute("carId"));
-            CarDAO carDAO = new CarDAOi();
+            CarDAO carDAO = new CarDaoImp();
             Car car = carDAO.findCar(carId);
-            RentDAO rentDAO = new RentDAOi();
+            RentDAO rentDAO = new RentDaoImp();
             rentDAO.rentCar(user, car, startDate, endDate);
             req.setAttribute("car", car);
             req.setAttribute("user", user);

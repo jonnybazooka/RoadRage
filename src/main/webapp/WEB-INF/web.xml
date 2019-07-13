@@ -83,7 +83,7 @@
 
   <servlet>
     <servlet-name>ErrorHandler</servlet-name>
-    <servlet-class>org.tgieralt.servlets.ErrorHandler</servlet-class>
+    <servlet-class>org.tgieralt.servlets.ErrorHandlerServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>ErrorHandler</servlet-name>

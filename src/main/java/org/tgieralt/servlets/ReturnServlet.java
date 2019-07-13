@@ -4,9 +4,9 @@ import org.tgieralt.models.Car;
 import org.tgieralt.models.dao.CarDAO;
 import org.tgieralt.models.dao.FinishedRentDAO;
 import org.tgieralt.models.dao.RentDAO;
-import org.tgieralt.models.dao.impl.CarDAOi;
-import org.tgieralt.models.dao.impl.FinishedRentDAOi;
-import org.tgieralt.models.dao.impl.RentDAOi;
+import org.tgieralt.models.dao.impl.CarDaoImp;
+import org.tgieralt.models.dao.impl.FinishedRentDaoImp;
+import org.tgieralt.models.dao.impl.RentDaoImp;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -19,7 +19,7 @@ import java.util.List;
 public class ReturnServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        CarDAO carDAO = new CarDAOi();
+        CarDAO carDAO = new CarDaoImp();
         List<Car> rentedCars = carDAO.getRentedCarsList();
         req.setAttribute("rentedCars", rentedCars);
         RequestDispatcher dispatcher = req.getRequestDispatcher("return.jsp");
@@ -30,8 +30,8 @@ public class ReturnServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         long rentId = Long.parseLong(req.getParameter("carSelect"));
         String comments = req.getParameter("comments");
-        FinishedRentDAO finishedRentDAO = new FinishedRentDAOi();
-        RentDAO rentDAO = new RentDAOi();
+        FinishedRentDAO finishedRentDAO = new FinishedRentDaoImp();
+        RentDAO rentDAO = new RentDaoImp();
         finishedRentDAO.saveFinishedRent(rentId, comments);
         rentDAO.removeRent(rentId);
         resp.sendRedirect("return");

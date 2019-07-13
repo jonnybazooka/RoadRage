@@ -3,7 +3,7 @@ package org.tgieralt.servlets;
 import org.tgieralt.authentication.HashFunction;
 import org.tgieralt.authentication.impl.SHA256;
 import org.tgieralt.models.dao.UserDAO;
-import org.tgieralt.models.dao.impl.UserDAOi;
+import org.tgieralt.models.dao.impl.UserDaoImp;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -20,7 +20,7 @@ public class RegisterServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        UserDAO userDAO = new UserDAOi();
+        UserDAO userDAO = new UserDaoImp();
         HashFunction hashFunction = new SHA256();
 
         String userEmail = req.getParameter("userEmail");

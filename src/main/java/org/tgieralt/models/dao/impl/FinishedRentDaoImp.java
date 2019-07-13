@@ -5,17 +5,16 @@ import org.tgieralt.models.FinishedRent;
 import org.tgieralt.models.Rent;
 import org.tgieralt.models.User;
 import org.tgieralt.models.dao.FinishedRentDAO;
-import org.tgieralt.persistence.Persistence;
+import org.tgieralt.persistence.DatabaseProvider;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import javax.persistence.Query;
 import java.util.List;
 
-public class FinishedRentDAOi implements FinishedRentDAO {
+public class FinishedRentDaoImp implements FinishedRentDAO {
     @Override
     public void saveFinishedRent(long rentId, String comments) {
-        EntityManager entityManager = Persistence.getEntityManager();
+        EntityManager entityManager = DatabaseProvider.getEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
 
         Rent rent = entityManager.find(Rent.class, rentId);
@@ -34,7 +33,7 @@ public class FinishedRentDAOi implements FinishedRentDAO {
 
     @Override
     public List<FinishedRent> getAllFinishedRents() {
-        EntityManager entityManager = Persistence.getEntityManager();
+        EntityManager entityManager = DatabaseProvider.getEntityManager();
         return (List<FinishedRent>)entityManager.createQuery("FROM FinishedRent").getResultList();
     }
 }
